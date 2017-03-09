@@ -111,7 +111,7 @@ Puppet::Type.type(:java_ks).provide(:keytool) do
         '-keystore', @resource[:target],
         '-alias', @resource[:name]
     ]
-    cmd += [ '-storetype', storetype ] if storetype == "jceks"
+    cmd += [ '-storetype', storetype ] unless @resource[:storetype].nil?
     begin
       tmpfile = password_file
       run_command(cmd, false, tmpfile)
@@ -151,7 +151,7 @@ Puppet::Type.type(:java_ks).provide(:keytool) do
           '-keystore', @resource[:target],
           '-alias', @resource[:name]
       ]
-      cmd += [ '-storetype', storetype ] if storetype == "jceks"
+      cmd += [ '-storetype', storetype ] unless @resource[:storetype].nil?
       tmpfile = password_file
       output = run_command(cmd, false, tmpfile)
       tmpfile.close!
