@@ -75,8 +75,8 @@ Puppet::Type.type(:java_ks).provide(:keytool) do
         '-srckeystore', tmppk12.path,
         '-alias', @resource[:name]
     ]
-    cmd += [ '-storetype', @resource[:storetype] ] if @resource[:storetype] == "jceks"
     cmd << '-trustcacerts' if @resource[:trustcacerts] == :true
+    cmd += [ '-storetype', @resource[:storetype] ] unless @resource[:storetype].nil?
     cmd += [ '-destkeypass', @resource[:destkeypass] ] unless @resource[:destkeypass].nil?
 
     pwfile = password_file
