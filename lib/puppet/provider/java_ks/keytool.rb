@@ -191,6 +191,7 @@ Puppet::Type.type(:java_ks).provide(:keytool) do
         '-alias', @resource[:name],
         '-keystore', @resource[:target]
     ]
+    cmd += [ '-storetype', storetype ] unless @resource[:storetype].nil?
     tmpfile = password_file
     run_command(cmd, false, tmpfile)
     tmpfile.close!
